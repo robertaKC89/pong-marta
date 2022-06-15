@@ -1,5 +1,6 @@
 #antes he instalado gestor de paquetes de pygame = pip 3
-from typing_extensions import Self
+# TGB: elimino este import, no es necesario. Seguramente lo ha puesto
+# automáticamente VS Code al escribir Self en lugar de self
 import pygame
 """
   - algo de herencia:
@@ -52,7 +53,10 @@ class Pong:
         print("Construyendo un objeto pong")
         pygame.init()
         # módulo display para control de pantalla y usamos .set_mode (ver uso en documentación)
-        self.pantalla = pygame.display.set_mode((self._ANCHO, self._ALTO))
+        # TGB: self._ANCHO y self._ALTO no existen. Si las has movido para
+        #      convertirlas en variables globales, tienes que cambiar el nombre
+        #      donde las usas. Las cambio a ANCHO, ALTO
+        self.pantalla = pygame.display.set_mode((ANCHO, ALTO))
         # variables creadas como propiedad de la class Pong
         self.jugador1 = Paleta(
             MARGEN_LATERAL,               # coordenada x (left)
@@ -88,7 +92,8 @@ class Pong:
             if estado_teclas[pygame.K_DOWN]:
                 self.jugador2.muevete(Paleta.ABAJO)
             #pinto la red del campo
-            pygame.draw.line(self.pantalla, (255, 255, 255), (self._ANCHO/2, 0), (self._ANCHO/2, self._ALTO))
+            # TGB: de nuevo hay que cambiar el nombre porque ahora son variables globales
+            pygame.draw.line(self.pantalla, (255, 255, 255), (ANCHO/2, 0), (ANCHO/2, ALTO))
             #cada vez que haga algo con el juego tendré que pintar la paleta en la posicion correcta
             pygame.draw.rect (self.pantalla, (255, 255,255),self.jugador1)
             pygame.draw.rect (self.pantalla, (255, 255,255),self.jugador2)
